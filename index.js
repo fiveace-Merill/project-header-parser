@@ -3,6 +3,7 @@
 
 // init project
 require('dotenv').config();
+
 var express = require('express');
 var app = express();
 
@@ -23,6 +24,11 @@ app.get('/', function (req, res) {
 app.get('/api/hello', function (req, res) {
   res.json({ greeting: 'hello API' });
 });
+
+app.get('/api/whoami', (req, res) => {
+  let response = {ipaddress: req.ip || req.connection.remoteAddress, language: req.headers["accept-language"], software: req.headers["user-agent"] }
+  res.json(response)
+})
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT || 3000, function () {
